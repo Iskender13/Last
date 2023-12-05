@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.pixabay.databinding.ItemImageBinding
 
-class ImageAdapter(val list: List<ImageModel>,): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter(var list: MutableList<ImageModel>): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     inner class ImageViewHolder(val binding: ItemImageBinding) : ViewHolder(binding.root){
         fun bind(model: ImageModel) {
             binding.imageView.load(model.largeImageUrl)
         }
 
     }
-
+    fun putImages(newImages: List<ImageModel>) {
+        list.addAll(newImages)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(ItemImageBinding.inflate(LayoutInflater.from(parent.context),
             parent, false))
